@@ -162,6 +162,12 @@
     .whatsapp-float { position: fixed; bottom: 75px; right: 20px; z-index: 150; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
     .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
 
+    /* PHONE FLOAT (doctrine HAAS — combiné animé) */
+    .phone-float { position: fixed; bottom: 145px; right: 16px; z-index: 160; width: 64px; height: 64px; background: #FFD700; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; animation: phone-glow 1.4s infinite; }
+    @keyframes phone-glow { 0% { box-shadow: 0 0 8px 4px rgba(255,215,0,.6) } 50% { box-shadow: 0 0 24px 16px rgba(255,215,0,.25) } 100% { box-shadow: 0 0 8px 4px rgba(255,215,0,.6) } }
+    .phone-float svg { width: 30px; height: 30px; fill: #000; animation: ring-shake 1.8s infinite; }
+    @keyframes ring-shake { 0%,55%,100% { transform: rotate(0) } 5%,15%,25%,35% { transform: rotate(-20deg) } 10%,20%,30%,40% { transform: rotate(20deg) } 45% { transform: rotate(-10deg) } 50% { transform: rotate(10deg) } }
+
     /* COOKIE BANNER (S17) */
     .cookie-banner { display: none; position: fixed; bottom: 65px; left: 16px; z-index: 300; background: #fff; border-radius: 12px; padding: 16px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 420px; font-size: 13px; }
     .cookie-btns { display: flex; gap: 8px; margin-top: 10px; }
@@ -431,6 +437,11 @@
       WhatsApp
     </a>
   </div>
+
+  <!-- PHONE FLOATING BUTTON (doctrine HAAS — combiné animé) -->
+  <a href="tel:0427448843" class="phone-float dni-phone" aria-label="Appeler AXEO Lyon">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+  </a>
 
   <!-- WHATSAPP FLOATING BUTTON -->
   <a href="https://wa.me/33661728795?text=Bonjour%2C%20je%20souhaite%20un%20devis%20m%C3%A9nage%20%C3%A0%20Lyon." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
