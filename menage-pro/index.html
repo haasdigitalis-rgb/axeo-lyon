@@ -410,5 +410,33 @@
   setTimeout(function(){if(!sessionStorage.getItem('popupShown')){document.getElementById('callPopup').classList.add('active');sessionStorage.setItem('popupShown','1')}},8000);
   document.getElementById('callPopup').addEventListener('click',function(e){if(e.target===this)this.classList.remove('active')});
 </script>
+<script>
+/* Protocole mesure WhatsApp HAAS - ref + dataLayer + Sheet central (12/06/2026) */
+(function(){
+  var WH='https://script.google.com/macros/s/AKfycbz08ifzrAndOnoFCw2swbavYXsECcliqt5mRBB9rAnmPEbdJiWUNCjS30OoT7DVbkM-6Q/exec';
+  var CLIENT='AXEO Services Lyon';var PFX='AXLY';
+  function waRef(){var d=new Date();return PFX+'-'+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2)+'-'+Math.random().toString(36).slice(2,5).toUpperCase();}
+  function cliName(){
+    var i=document.querySelector('input[name="client"]');
+    if(i&&i.value)return i.value;
+    try{var l=document.querySelector('script[type="application/ld+json"]');
+      if(l){var n=JSON.parse(l.textContent).name;if(n)return n.split('\u2014')[0].split('\u2013')[0].split('|')[0].trim();}}catch(e){}
+    return CLIENT;
+  }
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var ref=waRef();var cl=cliName();
+      var qt=a.href.indexOf('text=')>-1?decodeURIComponent(a.href.split('text=')[1].split('&')[0]):'';
+      var msg=(qt?qt+' ':'')+'[R\u00e9f '+ref+']';
+      var url=a.href.split('?')[0]+'?text='+encodeURIComponent(msg);
+      if(window.dataLayer)dataLayer.push({event:'click_whatsapp_resa',conv_client:cl,wa_ref:ref,wa_page:location.hostname+location.pathname});
+      var data={client:cl,type:'WhatsApp clic',ref:ref,page:location.hostname+location.pathname,message:msg,prenom:'(clic WhatsApp)',besoin:'WhatsApp ['+ref+']',date:new Date().toLocaleString('fr-FR'),referrer:document.referrer||'direct'};
+      try{fetch(WH,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});}catch(err){}
+      window.open(url,'_blank','noopener');
+    });
+  });
+})();
+</script>
 </body>
 </html>
