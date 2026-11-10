@@ -550,14 +550,9 @@ gtag('set','ads_data_redaction',true);
           body: JSON.stringify(obj)
         });
 
-        // Conversion tracking Google Ads
-        if (typeof gtag === 'function') {
-          gtag('event', 'conversion', {
-            'send_to': 'AW-17879050207/CONVERSION_LABEL',
-            'value': 1.0,
-            'currency': 'EUR'
-          });
-        }
+        // Conversion Ads formulaire suspendue : aucun libelle valide certifie.
+        // Reactiver uniquement avec le libelle propre au compte Lyon, apres
+        // confirmation d'enregistrement du lead et verification du consentement.
 
         form.style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
