@@ -287,6 +287,11 @@ gtag('set','ads_data_redaction',true);
       <h2>Devis gratuit en 24h</h2>
       <p class="form-subtitle">Décrivez votre besoin, on vous rappelle rapidement</p>
       <form id="contact-form">
+          <!-- Anti-spam : champ piège invisible (honeypot). Jamais rempli par un humain : hors écran, hors tabulation, ignoré des lecteurs d'écran, sans remplissage automatique. -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+            <label for="hp-website">Ne pas remplir ce champ</label>
+            <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" value="">
+          </div>
         <div class="form-grid">
           <input type="text" name="prenom" placeholder="Prénom" required>
           <input type="text" name="nom" placeholder="Nom" required>
@@ -535,6 +540,10 @@ gtag('set','ads_data_redaction',true);
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
+        /* Anti-spam : champ piège invisible `website`. Rempli = robot : rien n'est
+           envoyé au récepteur, aucune conversion ; même écran de confirmation. */
+        var hpField = form.querySelector('input[name="website"]');
+        if (hpField && hpField.value) { form.style.display = 'none'; document.getElementById('form-success').style.display = 'block'; return; }
         document.getElementById('form-date').value = new Date().toLocaleString('fr-FR');
         var data = new FormData(form);
         var obj = {};
